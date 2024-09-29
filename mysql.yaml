@@ -1,5 +1,6 @@
 - name: configuring mysql application
   hosts: mysql
+  become: yes
   tasks:
   - name: installing mysql server
     ansible.builtin.package:
