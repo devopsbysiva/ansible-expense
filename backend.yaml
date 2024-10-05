@@ -1,5 +1,8 @@
 - name: Backend setup 
   hosts: backend
+  vars:
+    password: ExpenseApp@1
+    login_host: mysql.devgani.online
   tasks:
 
   - name: disabling node js module.
@@ -10,7 +13,7 @@
 
   - name: installing node js 
     ansible.builtin.package:
-      name: "{{ item }}""
+      name: "{{ item }}"
       state: present
     loop:
     - nodejs
@@ -48,7 +51,7 @@
   - name: import mysql data
     community.mysql.mysql_db:
       login_user: root
-      login_password: "{{ mysql_root_password }}"
+      login_password: "{{ password }}"
       login_host: "{{ login_host }}"
       target: /app/schema/backend.sql
       name: all
