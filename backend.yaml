@@ -19,7 +19,8 @@
     loop:
     - nodejs
     - mysql
-  - name: ansible to install pymysql
+
+  - name: ansible to install pymysql and cryptography
     ansible.builtin.pip:
       name:
       - PyMySQL
