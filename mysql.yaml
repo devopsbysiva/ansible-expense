@@ -2,7 +2,7 @@
   hosts: mysql # ip is mentioned in inventory file.
   become: yes  #sudo su-
   vars:
-    password: "ExpenseApp@1"
+    password: ExpenseApp@1
   tasks:
   - name: installing mysql server
     ansible.builtin.package:
@@ -13,7 +13,7 @@
       name: mysqld  #mysql client
       state: started # systemctl start mysqld.
       enabled: yes  # systemctl enable mysqld
-      
+
   - name: ansible to install pymysql
     ansible.builtin.pip:
       name:
