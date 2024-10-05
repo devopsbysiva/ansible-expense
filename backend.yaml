@@ -1,5 +1,6 @@
 - name: Backend setup 
   hosts: backend
+  become: yes
   vars:
     password: ExpenseApp@1
     login_host: mysql.devgani.online
@@ -33,7 +34,7 @@
       url: https://expense-builds.s3.us-east-1.amazonaws.com/expense-backend-v2.zip
       dest: /tmp/backend.zip
 
-  - name: Extract foo.tgz
+  - name: unziping from tmp location into app location.
     ansible.builtin.unarchive:
      src: /tmp/backend.zip
      dest: /app
