@@ -8,6 +8,12 @@
     ansible.builtin.package:
       name: mysql-server  #mysql package
       state: present      # dnf install mysql 
+
+  - name: install MySQLd Server
+    ansible.builtin.package:
+      name: mysqld
+      state: present
+
   - name: Start MySQL Service
     ansible.builtin.service:
       name: mysqld  #mysql client
