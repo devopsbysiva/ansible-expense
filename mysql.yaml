@@ -1,14 +1,31 @@
 - name: configuring mysql application
-  hosts: mysql
-  become: yes
+  hosts: mysql # ip is mentioned in inventory file.
+  become: yes  #sudo su-
+  vars:
+  password: "ExpenseApp@1"
   tasks:
   - name: installing mysql server
     ansible.builtin.package:
-      name: mysql-server
-      state: present
+      name: mysql-server  #mysql package
+      state: present      # dnf install mysql 
   - name: Start MySQL Service
     ansible.builtin.service:
-      name: mysqld
-      state: started
-      enabled: yes
+      name: mysqld  #mysql client
+      state: started # systemctl start mysqld.
+      enabled: yes  # systemctl enable mysqld
 
+  - name: Get MySQL version with non-default credentials
+    community.mysql.mysql_info:
+      login_user: root
+      login_password: {{ password }}
+      ignore_error: true
+    register: mysql_info
+
+  - name: printing info
+    ansible.builtin.debug:
+      msg: "{{ mysql_info }}"
+
+  - name: if password is not set setting here.
+    ansible.builtin.command: "mysql_secure_installation --set -root -pass {{ password }}"
+    when: mysql.info.failed is true
+       
