@@ -6,12 +6,13 @@
     mysql_root_password: ExpenseApp@1
     login_host: mysql.devgani.online
   tasks:
-  - name: ansible to install pymysql
+  - name: ansible to install pymysql and cryptography
     ansible.builtin.pip:
       name:
       - PyMySQL
       - cryptography
       executable: pip3.9
+
   - name: install MySQL Server
     ansible.builtin.package:
       name: mysql-server
