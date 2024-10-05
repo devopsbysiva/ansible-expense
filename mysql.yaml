@@ -27,5 +27,5 @@
 
   - name: if password is not set setting here.
     ansible.builtin.command: "mysql_secure_installation --set -root -pass {{ password }}"
-    when: mysql.info.failed is true
+    when: mysql_info.failed is true
        
