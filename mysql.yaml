@@ -13,7 +13,12 @@
       name: mysqld  #mysql client
       state: started # systemctl start mysqld.
       enabled: yes  # systemctl enable mysqld
-
+      
+  - name: ansible to install pymysql
+    ansible.builtin.pip:
+      name:
+      - PyMySQL
+      executable: pip3.9
   - name: Get MySQL version with non-default credentials
     community.mysql.mysql_info:
       login_user: root
