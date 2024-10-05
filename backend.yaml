@@ -19,7 +19,7 @@
     loop:
     - nodejs
     - mysql
-    - PyMySQL
+    - PMySQL-python
   
   - name: creating a user
     ansible.builtin.user:
