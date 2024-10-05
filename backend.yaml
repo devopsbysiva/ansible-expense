@@ -2,7 +2,7 @@
   hosts: backend
   become: yes
   vars:
-    password: "ExpenseApp@1" #ExpenseApp@1
+    password: ExpenseApp@1 #ExpenseApp@1
     login_host: mysql.devgani.online
   tasks:
 
