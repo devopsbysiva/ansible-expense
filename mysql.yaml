@@ -1,42 +1,38 @@
-- name: configuring mysql application
-  hosts: mysql # ip is mentioned in inventory file.
-  become: yes  #sudo su-
+- name: mysql configuration
+  hosts: mysql
+  become: yes
   vars:
-    password: ExpenseApp@1
+    mysql_root_password: ExpenseApp@1
+    login_host: mysql.devgani.online
   tasks:
-  - name: installing mysql server
-    ansible.builtin.package:
-      name: mysql-server  #mysql package
-      state: present      # dnf install mysql 
-
-  - name: install MySQLd Server
-    ansible.builtin.package:
-      name: mysqld
-      state: present
-
-  - name: Start MySQL Service
-    ansible.builtin.service:
-      name: mysqld  #mysql client
-      state: started # systemctl start mysqld.
-      enabled: yes  # systemctl enable mysqld
-
   - name: ansible to install pymysql
     ansible.builtin.pip:
       name:
       - PyMySQL
       executable: pip3.9
-  - name: Get MySQL version with non-default credentials
+  - name: install MySQL Server
+    ansible.builtin.package:
+      name: mysql-server
+      state: present
+
+  - name: start mysql server
+    ansible.builtin.service:
+      name: mysqld
+      state: started
+      enabled: yes
+
+  - name: connect mysql server
     community.mysql.mysql_info:
       login_user: root
-      login_password: "{{ password }}"
+      login_password: "{{ mysql_root_password }}"
+      login_host: "{{ login_host }}"
     ignore_errors: true
     register: mysql_info
 
-  - name: printing info
+  - name: print mysql info
     ansible.builtin.debug:
       msg: "{{ mysql_info }}"
 
-  - name: if password is not set setting here.
-    ansible.builtin.command: "mysql_secure_installation --set -root -pass {{ password }}"
+  - name: setup MySQL root password
+    ansible.builtin.command: "mysql_secure_installation --set-root-pass {{ mysql_root_password }}"
     when: mysql_info.failed is true
-       
