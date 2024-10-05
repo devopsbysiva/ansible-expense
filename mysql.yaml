@@ -18,7 +18,7 @@
     community.mysql.mysql_info:
       login_user: root
       login_password: "{{ password }}"
-      ignore_errors: true
+    ignore_errors: true
     register: mysql_info
 
   - name: printing info
