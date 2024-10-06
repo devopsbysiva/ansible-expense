@@ -36,12 +36,12 @@
       path: /app
       state: directory
 
-  - name: Download 
+  - name: Download the source code
     ansible.builtin.get_url:
       url: https://expense-builds.s3.us-east-1.amazonaws.com/expense-backend-v2.zip
       dest: /tmp/backend.zip
 
-  - name: unziping from tmp location into app location.
+  - name: unziping from /tmp location into app location.
     ansible.builtin.unarchive:
      src: /tmp/backend.zip
      dest: /app
